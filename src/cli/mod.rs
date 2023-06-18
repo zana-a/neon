@@ -14,9 +14,20 @@ impl Cli {
             .before_help(Self::create_before_help())
             .subcommand(Self::create_new_command())
             .subcommand(Self::create_build_command())
-            .subcommand(Self::create_clean_command());
+            .subcommand(Self::create_clean_command())
+            .get_matches();
 
-        root_command.get_matches();
+        if root_command.subcommand_matches("new").is_some() {
+            Self::handle_new_command();
+        }
+
+        if root_command.subcommand_matches("build").is_some() {
+            Self::handle_build_command();
+        }
+
+        if root_command.subcommand_matches("clean").is_some() {
+            Self::handle_clean_command();
+        }
     }
 
     fn create_before_help() -> String {
@@ -26,7 +37,7 @@ impl Cli {
     fn create_new_command() -> Command {
         Command::new("new")
             .about("Create a new neon package")
-            .arg(arg!(<path>))
+            .arg(arg!(<name>))
     }
 
     fn create_build_command() -> Command {
@@ -39,5 +50,17 @@ impl Cli {
         Command::new("clean")
             .about("Remove artifacts that neon has generated")
             .arg(arg!(<path>))
+    }
+
+    fn handle_new_command() {
+        println!("Creating");
+    }
+
+    fn handle_build_command() {
+        println!("Building");
+    }
+
+    fn handle_clean_command() {
+        println!("Cleaning");
     }
 }
