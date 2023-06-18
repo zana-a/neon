@@ -1,3 +1,8 @@
+use std::fmt::write;
+use std::fs::{create_dir_all, File};
+use std::io::Write;
+use std::path::Path;
+
 use clap::*;
 
 use crate::prelude::meta::*;
@@ -52,8 +57,28 @@ impl Cli {
     fn handle_new_command(root_command: &ArgMatches) {
         if let Some(command) = root_command.subcommand_matches(Self::COMMAND_NEW) {
             if let Some(path) = command.get_one::<String>("path") {
-                println!("creating project in: {}", path)
+                Self::create_boilerplate_project(Path::new(path));
             }
+        }
+    }
+
+    // TODO: This needs fixing. Too clumsy
+    fn create_boilerplate_project(path: &Path) {
+        if create_dir_all(path.join("src")).is_ok() {
+            if let Ok(mut file) = File::create(path.join("src/main.ne")) {
+                if file.write_all(b"fun main() {\n}").is_ok() {}
+            }
+
+            if let Ok(mut file) = File::create(path.join("Neon.yml")) {
+                if file
+                    .write_all(format!("name: {:?}", path.file_name().unwrap()).as_bytes())
+                    .is_ok()
+                {}
+            }
+
+            println!("Created project {:?}", path.display());
+        } else {
+            panic!("dd")
         }
     }
 
