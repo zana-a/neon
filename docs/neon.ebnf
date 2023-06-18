@@ -1,0 +1,32 @@
+letter_upper = 'A' ... 'Z';
+letter_lower = 'a' ... 'A';
+letter = letter_lower | letter_upper;
+
+zero = '0';
+digit = '1' ... '9';
+number = zero | digit;
+
+underscore = '_';
+equals = '=';
+comma = ',';
+colon = ':';
+left_parenthesis = '(';
+right_parenthesis = ')';
+left_brace = '{';
+right_brace = '}';
+
+identifier = letter | underscore , { letter | number | underscore };
+
+param = identifier , colon , identifier;
+
+constant = 'val' , identifier , param , equals , expression;
+variable = 'var' , identifier , param , equals , expression;
+params = param , [ ( comma , param ) ];
+function = 'fun' , identifier , left_parenthesis, params, right_parenthesis, left_brace, statements, right_brace;
+
+
+
+(* todo *)
+expression = ;
+statement = ;
+statements = { statement };
