@@ -10,9 +10,9 @@ use crate::prelude::meta::*;
 pub struct Cli;
 
 impl Cli {
-    const COMMAND_NEW: &str = "new";
-    const COMMAND_BUILD: &str = "build";
-    const COMMAND_CLEAN: &str = "clean";
+    const COMMAND_NEW: &'static str = "new";
+    const COMMAND_BUILD: &'static str = "build";
+    const COMMAND_CLEAN: &'static str = "clean";
 
     pub fn run() {
         let root_command = Command::new(NAME)

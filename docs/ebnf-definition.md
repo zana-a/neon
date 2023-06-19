@@ -3,7 +3,7 @@
 | definition       | =         |
 | concatenation    | ,         |
 | termination      | ;         |
-| alternation      | |         |
+| alternation      | \|        |
 | optional         | [ ... ]   |
 | repetition       | { ... }   |
 | grouping         | ( ... )   |
