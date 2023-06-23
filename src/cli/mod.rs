@@ -57,29 +57,20 @@ impl Cli {
     fn handle_new_command(root_command: &ArgMatches) {
         if let Some(command) = root_command.subcommand_matches(Self::COMMAND_NEW) {
             if let Some(path) = command.get_one::<String>("path") {
-                Self::create_boilerplate_project(Path::new(path));
+                match Self::create_boilerplate_project(Path::new(path)) {
+                    Ok(_) => println!("Created project at: {}", path),
+                    Err(e) => panic!("{}", e),
+                }
             }
         }
     }
 
     // TODO: This needs fixing. Too clumsy
-    fn create_boilerplate_project(path: &Path) {
-        if create_dir_all(path.join("src")).is_ok() {
-            if let Ok(mut file) = File::create(path.join("src/main.ne")) {
-                if file.write_all(b"fun main() {\n}").is_ok() {}
-            }
-
-            if let Ok(mut file) = File::create(path.join("Neon.yml")) {
-                if file
-                    .write_all(format!("name: {:?}", path.file_name().unwrap()).as_bytes())
-                    .is_ok()
-                {}
-            }
-
-            println!("Created project {:?}", path.display());
-        } else {
-            panic!("dd")
-        }
+    fn create_boilerplate_project(path: &Path) -> std::io::Result<()> {
+        create_dir_all(path.join("src"))?;
+        File::create(path.join("src").join("main.ne"))?.write_all(b"buffer")?;
+        File::create(path.join("Neon.yaml"))?.write_all(b"buffer")?;
+        Ok(())
     }
 
     fn handle_build_command(root_command: &ArgMatches) {
