@@ -1,11 +1,12 @@
-use std::fs::create_dir_all;
-use std::fs::File;
-use std::io::Write;
 use std::path::Path;
 
 use clap::*;
 
-use crate::prelude::meta::*;
+use crate::cli::meta::*;
+
+mod generator;
+mod meta;
+mod runner;
 
 pub struct Cli;
 
@@ -36,14 +37,14 @@ impl Cli {
     }
 
     fn create_new_command() -> Command {
+        let arg = Arg::new("path")
+            .required(true)
+            .action(ArgAction::Set)
+            .help("The path location of the new project");
+
         Command::new(Self::COMMAND_NEW)
             .about("Create a new neon package")
-            .arg(
-                Arg::new("path")
-                    .required(true)
-                    .action(ArgAction::Set)
-                    .help("The path location of the new project"),
-            )
+            .arg(arg)
     }
 
     fn create_build_command() -> Command {
@@ -65,12 +66,8 @@ impl Cli {
         }
     }
 
-    // TODO: This needs fixing. Too clumsy
     fn create_boilerplate_project(path: &Path) -> std::io::Result<()> {
-        create_dir_all(path.join("src"))?;
-        File::create(path.join("src").join("main.ne"))?.write_all(b"buffer")?;
-        File::create(path.join("Neon.yaml"))?.write_all(b"buffer")?;
-        Ok(())
+        generator::Generator::create_bin_project(path)
     }
 
     fn handle_build_command(root_command: &ArgMatches) {
