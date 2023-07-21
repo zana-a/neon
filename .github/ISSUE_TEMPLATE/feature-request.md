@@ -1,3 +1,12 @@
+---
+name: Feature Request
+description: Add new advancement
+title: "[Feature]: "
+labels:
+  - enhancement
+assignees:
+---
+
 # 🚀 Feature Request
 
 ## Description
