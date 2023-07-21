@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-description: Add new advancement
+about: Add new advancement
 title: "[Feature]: "
 labels:
   - enhancement
