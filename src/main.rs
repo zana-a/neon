@@ -1,5 +1,3 @@
-mod bool;
-mod identifier;
-mod prelude;
+mod core;
 
 fn main() {}
