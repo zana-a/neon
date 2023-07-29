@@ -1,5 +1,11 @@
+import { Container } from "@/components";
+
 const RootPage = () => {
-  return <h1>Hello, world!</h1>;
+  return (
+    <Container>
+      <h1 className="text-6xl">Hello, world</h1>
+    </Container>
+  );
 };
 
 export default RootPage;
