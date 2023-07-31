@@ -6,8 +6,9 @@ use nom::branch::alt;
 
 use crate::core::parser::bool::pfalse::*;
 use crate::core::parser::bool::ptrue::*;
-use crate::core::parser::bool::structure::*;
 use crate::core::parser::prelude::*;
+
+pub use crate::core::parser::bool::structure::Bool;
 
 pub fn bool(input: &str) -> Result<&str, Bool> {
     alt((ptrue, pfalse))(input)
