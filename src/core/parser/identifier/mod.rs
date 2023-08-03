@@ -5,14 +5,15 @@ use nom::combinator::*;
 use nom::multi::many1;
 use nom::sequence::pair;
 
-use crate::core::parser::identifier::structure::*;
+pub use crate::core::parser::identifier::structure::Identifier;
+
 use crate::core::parser::prelude::*;
 
 pub fn identifier(input: &str) -> Result<&str, Identifier> {
-    recognize(all_consuming(pair(
+    recognize(pair(
         alt((alpha, underscore)),
         opt(many1(alt((alpha, numeric, underscore)))),
-    )))(input)
+    ))(input)
     .map(|(remaining, value)| {
         (
             remaining,
