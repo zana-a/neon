@@ -1,14 +1,13 @@
-import { randomUUID } from "crypto";
 import Link from "next/link";
 import React from "react";
 
 interface NavbarProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Navbar = (props: NavbarProps) => {
   return (
-    <div className="fixed top-0 w-full">
+    <div className="fixed top-0 left-0 w-full">
       <nav className="border-b border-gray-200 bg-white h-14 flex items-center">
         {props.children}
       </nav>
@@ -23,7 +22,7 @@ interface NavbarCollectionProps {
 const NavbarCollection = (props: NavbarCollectionProps) => {
   let items;
   if (props.children instanceof Array) {
-    items = props.children.map((item) => <li key={randomUUID()}>{item}</li>);
+    items = props.children.map((item) => <li key={1}>{item}</li>);
   } else {
     items = <li>{props.children}</li>;
   }
