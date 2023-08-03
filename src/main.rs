@@ -1,3 +1,6 @@
+mod cli;
 mod core;
 
-fn main() {}
+fn main() {
+    cli::run()
+}
