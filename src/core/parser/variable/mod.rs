@@ -1,16 +1,15 @@
-mod structure;
-
 use nom::bytes::complete::tag;
 use nom::character::complete::multispace0;
 use nom::combinator::all_consuming;
 use nom::sequence::delimited;
 use nom::sequence::separated_pair;
 
-pub use crate::core::parser::variable::structure::Variable;
-
 use crate::core::parser::bool::bool;
 use crate::core::parser::identifier::identifier;
 use crate::core::parser::prelude::Result;
+pub use crate::core::parser::variable::structure::Variable;
+
+mod structure;
 
 fn equals(input: &str) -> Result<&str, &str> {
     delimited(multispace0, tag("="), multispace0)(input)
@@ -23,7 +22,6 @@ pub fn variable(input: &str) -> Result<&str, Variable> {
 
 #[cfg(test)]
 mod tests {
-
     use crate::core::parser::bool::*;
     use crate::core::parser::identifier::*;
     use crate::core::parser::variable::*;

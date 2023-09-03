@@ -1,13 +1,12 @@
-mod structure;
-
 use nom::branch::alt;
 use nom::combinator::*;
 use nom::multi::many1;
 use nom::sequence::pair;
 
 pub use crate::core::parser::identifier::structure::Identifier;
-
 use crate::core::parser::prelude::*;
+
+mod structure;
 
 pub fn identifier(input: &str) -> Result<&str, Identifier> {
     recognize(pair(

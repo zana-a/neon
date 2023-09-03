@@ -1,15 +1,14 @@
-mod structure;
-
 use nom::bytes::complete::tag;
 use nom::character::complete::multispace0;
 use nom::combinator::all_consuming;
 use nom::multi::separated_list0;
 use nom::sequence::delimited;
 
-pub use crate::core::parser::list::structure::List;
-
 use crate::core::parser::bool::*;
+pub use crate::core::parser::list::structure::List;
 use crate::core::parser::prelude::Result;
+
+mod structure;
 
 fn items(input: &str) -> Result<&str, Vec<Bool>> {
     separated_list0(delimited(multispace0, tag(","), multispace0), bool)(input)
@@ -26,7 +25,6 @@ pub fn list(input: &str) -> Result<&str, List> {
 
 #[cfg(test)]
 mod tests {
-
     use crate::core::parser::bool::Bool;
     use crate::core::parser::list::*;
 

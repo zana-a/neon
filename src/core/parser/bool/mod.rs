@@ -1,14 +1,13 @@
-mod pfalse;
-mod ptrue;
-mod structure;
-
 use nom::branch::alt;
 
 use crate::core::parser::bool::pfalse::*;
 use crate::core::parser::bool::ptrue::*;
+pub use crate::core::parser::bool::structure::Bool;
 use crate::core::parser::prelude::*;
 
-pub use crate::core::parser::bool::structure::Bool;
+mod pfalse;
+mod ptrue;
+mod structure;
 
 pub fn bool(input: &str) -> Result<&str, Bool> {
     alt((ptrue, pfalse))(input)
