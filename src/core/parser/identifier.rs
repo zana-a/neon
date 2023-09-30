@@ -1,14 +1,19 @@
-use nom::branch::alt;
-use nom::combinator::*;
-use nom::multi::many1;
-use nom::sequence::pair;
+use nom::{
+    branch::alt,
+    combinator::{opt, recognize},
+    multi::many1,
+    sequence::pair,
+    IResult,
+};
 
-pub use crate::core::parser::identifier::structure::Identifier;
-use crate::core::parser::prelude::*;
+use super::{alpha::alpha, numeric::numeric, underscore::underscore};
 
-mod structure;
+#[derive(Debug, PartialEq)]
+pub struct Identifier {
+    pub value: String,
+}
 
-pub fn identifier(input: &str) -> Result<&str, Identifier> {
+pub fn identifier(input: &str) -> IResult<&str, Identifier> {
     recognize(pair(
         alt((alpha, underscore)),
         opt(many1(alt((alpha, numeric, underscore)))),
@@ -25,7 +30,7 @@ pub fn identifier(input: &str) -> Result<&str, Identifier> {
 
 #[cfg(test)]
 mod tests {
-    use crate::core::parser::identifier::*;
+    use super::*;
 
     #[test]
     fn underscore() {

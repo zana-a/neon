@@ -1,5 +1,6 @@
-pub mod bool;
+pub mod alpha;
+pub mod boolean;
+pub mod equals;
 pub mod identifier;
-pub mod list;
-pub mod prelude;
-pub mod variable;
+pub mod numeric;
+pub mod underscore;
