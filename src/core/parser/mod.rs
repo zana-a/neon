@@ -1,11 +1,15 @@
 pub mod alpha;
+pub mod assignment;
 pub mod block;
 pub mod boolean;
 pub mod brace;
+pub mod colon;
+pub mod comma;
 pub mod equals;
 pub mod expression;
 pub mod identifier;
 pub mod numeric;
 pub mod padded;
+pub mod pair;
 pub mod semi_colon;
 pub mod underscore;
