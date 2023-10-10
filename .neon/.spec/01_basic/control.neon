@@ -1,0 +1,23 @@
+if (is_cold) {
+    // do stuff when it is cold
+} else {
+    // do stuff when it is not cold
+}
+
+if (is_cold) {
+    // do stuff when it is cold
+} else if (is_humid) {
+    // do stuff when it is humid
+} else {
+    // do stuff when it is not cold or humid
+}
+
+match (is_cold) {
+    case true -> true,
+    case _ -> false,
+}
+
+when {
+    case true -> println(true),
+    case _ -> println(false)
+}

@@ -1,10 +1,10 @@
 pub mod alpha;
-pub mod assignment;
 pub mod block;
 pub mod boolean;
 pub mod brace;
 pub mod colon;
 pub mod comma;
+pub mod constant;
 pub mod equals;
 pub mod expression;
 pub mod identifier;

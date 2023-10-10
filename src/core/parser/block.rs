@@ -53,16 +53,16 @@ mod tests {
             },
         ));
 
-        let result = block("{true;}");
+        let result = block("{true}");
         assert_eq!(expected, result);
 
-        let result = block("{   true;   }");
+        let result = block("{   true   }");
         assert_eq!(expected, result);
 
-        let result = block("{\t\t\ttrue;\t\t\t}");
+        let result = block("{\t\t\ttrue\t\t\t}");
         assert_eq!(expected, result);
 
-        let result = block("{\n\n\ntrue;\n\n\n}");
+        let result = block("{\n\n\ntrue\n\n\n}");
         assert_eq!(expected, result);
     }
 
@@ -79,13 +79,13 @@ mod tests {
             },
         ));
 
-        let result = block("{true;false;true;}");
+        let result = block("{true false true}");
         assert_eq!(expected, result);
 
-        let result = block("{true;   false;   true;}");
+        let result = block("{true   false   true}");
         assert_eq!(expected, result);
 
-        let result = block("{true;\t\t\tfalse;\t\t\ttrue;}");
+        let result = block("{true\t\t\tfalse\t\t\ttrue}");
         assert_eq!(expected, result);
     }
 }

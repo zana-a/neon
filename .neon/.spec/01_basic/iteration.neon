@@ -1,0 +1,7 @@
+for (number in numbers) {
+
+}
+
+for (number in numbers, name in names) {
+    
+}
