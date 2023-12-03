@@ -1,7 +1,0 @@
-module Greeting {
-    fun hello_world() -> str = "Hello, world"
-    fun hello_world(name) -> str = "Hello, #name"
-}
-
-Greeting.hello_world()
-Greeting.hello_world("Zana")

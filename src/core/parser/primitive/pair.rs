@@ -1,10 +1,27 @@
+// todo - remove this module and replace it with less generic version
+
+//! # Pair module
+//!
+//! A pair represents a key and value seperated by a colon.
+//! This module is primitive and can only hold identifiers as both key and value.
+//! You can recompose it onto a more specific Pair struct.
+//!
+//! Reference:
+//! ```
+//! <identifier>: <identifier
+//! ```
+//!
+//! Example:
+//! ```
+//! a: b
+//! _hello: world
+//! ```
+
 use nom::{sequence::separated_pair, IResult};
 
-use super::{
-    colon::colon,
-    identifier::{identifier, Identifier},
-    padded::padded0,
-};
+use crate::core::parser::primitive::identifier::{identifier, Identifier};
+use crate::core::parser::util::colon::colon;
+use crate::core::parser::util::padded::padded0;
 
 #[derive(Debug, PartialEq)]
 pub struct Pair {
@@ -26,7 +43,6 @@ pub fn pair(input: &str) -> IResult<&str, Pair> {
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
 
     #[test]

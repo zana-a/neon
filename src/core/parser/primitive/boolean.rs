@@ -1,3 +1,18 @@
+//! # Boolean module
+//!
+//! A boolean can be either true or false.
+//!
+//! Reference:
+//! ```
+//! <true> or <false>
+//! ```
+//!
+//! Example:
+//! ```
+//! true
+//! false
+//! ```
+
 use nom::{branch::alt, bytes::complete::tag, IResult};
 
 #[derive(PartialEq, Debug)]
@@ -20,7 +35,6 @@ pub fn boolean(input: &str) -> IResult<&str, Boolean> {
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
 
     #[test]

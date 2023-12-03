@@ -1,3 +1,7 @@
+//! # Identifier module
+//!
+//! An identifier is used to attach a name to a construct.
+
 use nom::{
     branch::alt,
     combinator::{opt, recognize},
@@ -6,7 +10,9 @@ use nom::{
     IResult,
 };
 
-use super::{alpha::alpha, numeric::numeric, underscore::underscore};
+use crate::core::parser::util::alpha::alpha;
+use crate::core::parser::util::numeric::numeric;
+use crate::core::parser::util::underscore::underscore;
 
 #[derive(Debug, PartialEq)]
 pub struct Identifier {

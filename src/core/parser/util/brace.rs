@@ -1,9 +1,9 @@
-use nom::{character::complete::char, IResult};
+use nom::IResult;
 
 pub fn left_brace(input: &str) -> IResult<&str, char> {
-    char('{')(input)
+    nom::character::complete::char('{')(input)
 }
 
 pub fn right_brace(input: &str) -> IResult<&str, char> {
-    char('}')(input)
+    nom::character::complete::char('}')(input)
 }

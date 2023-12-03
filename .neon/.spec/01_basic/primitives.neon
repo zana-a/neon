@@ -1,7 +1,0 @@
-let a_string: str = ""
-let an_integer: i32 = 100 
-let a_float: f32 = 100.0
-let a_boolean: bool = true
-let a_list_of_booleans: array<bool> = [true, false, true]
-let a_set_of_booleans: set<bool> = %[true, false, true]
-let a_map_of_integers_and_booleans: map<i32, bool> = %{1: true, 2: false, 3: true}

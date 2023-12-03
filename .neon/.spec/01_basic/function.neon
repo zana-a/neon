@@ -1,2 +1,0 @@
-fun add(a: i32, b: i32) -> i32 = a + b
-fun say_hello(name: str) -> str = "Hello, #name"

@@ -1,3 +1,18 @@
+//! # Constant module
+//!
+//! A constant is a construct that represents a value that cannot be changed. In addition,
+//! the constant can be called using its identifier.
+//!
+//! Reference:
+//! ```
+//! let <identifier>: <type> = <expression>;
+//! ```
+//!
+//! Example:
+//! ```
+//! let my_number: int = 23;
+//! ```
+
 use nom::{
     bytes::complete::tag,
     character::complete::multispace1,
@@ -5,13 +20,11 @@ use nom::{
     IResult,
 };
 
-use super::{
-    boolean::{boolean, Boolean},
-    equals::equals,
-    identifier::Identifier,
-    padded::padded0,
-    pair::pair,
-};
+use crate::core::parser::primitive::boolean::{boolean, Boolean};
+use crate::core::parser::primitive::identifier::Identifier;
+use crate::core::parser::primitive::pair::pair;
+use crate::core::parser::util::equals::equals;
+use crate::core::parser::util::padded::padded0;
 
 #[derive(Debug, PartialEq)]
 pub struct Constant {
@@ -38,9 +51,6 @@ pub fn constant(input: &str) -> IResult<&str, Constant> {
 
 #[cfg(test)]
 mod tests {
-
-    use crate::core::parser::boolean::Boolean;
-
     use super::*;
 
     #[test]
