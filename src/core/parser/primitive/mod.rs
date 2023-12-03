@@ -4,4 +4,5 @@
 
 pub(super) mod boolean;
 pub(super) mod identifier;
+mod integer;
 pub(super) mod pair;
