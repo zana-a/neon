@@ -1,0 +1,5 @@
+package: hello_world
+version: "0.0.1"
+
+dependencies:
+  stdlib: "0.0.1"

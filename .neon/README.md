@@ -1,3 +1,12 @@
-This folder contains neon files and projects. 
+Features
 
-The `.spec` folder shall be used for general overview of how neon works. It will eventually be removed for a more sophistectated solution such as a documentation website.
+1. Packages
+2. Modules
+3. Functions
+4. Bindings
+5. Destructing
+6. Structures
+7. Enums
+8. Match
+9. Conditionals
+10. For comprehensions

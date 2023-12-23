@@ -5,12 +5,12 @@
 //!
 //! Reference:
 //! ```
-//! let <identifier>: <type> = <expression>;
+//! let <identifier>: <type> = <expression>
 //! ```
 //!
 //! Example:
 //! ```
-//! let my_number: int = 23;
+//! let my_number: int = 23
 //! ```
 
 use nom::{
