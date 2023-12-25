@@ -21,16 +21,16 @@ pub enum Boolean {
     False,
 }
 
-fn t(input: &str) -> IResult<&str, Boolean> {
+fn r#true(input: &str) -> IResult<&str, Boolean> {
     tag("true")(input).map(|(remaining, _)| (remaining, Boolean::True))
 }
 
-fn f(input: &str) -> IResult<&str, Boolean> {
+fn r#false(input: &str) -> IResult<&str, Boolean> {
     tag("false")(input).map(|(remaining, _)| (remaining, Boolean::False))
 }
 
 pub fn boolean(input: &str) -> IResult<&str, Boolean> {
-    alt((t, f))(input)
+    alt((r#true, r#false))(input)
 }
 
 #[cfg(test)]
@@ -38,14 +38,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn t() {
+    fn r#true() {
         let expected = Ok(("", Boolean::True));
         let actual = boolean("true");
         assert_eq!(expected, actual);
     }
 
     #[test]
-    fn f() {
+    fn r#false() {
         let expected = Ok(("", Boolean::False));
         let actual = boolean("false");
         assert_eq!(expected, actual);

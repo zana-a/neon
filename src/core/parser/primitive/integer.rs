@@ -2,7 +2,7 @@ use nom::character::complete::i32;
 use nom::IResult;
 
 #[derive(Debug, PartialEq)]
-pub struct Integer(i32);
+pub struct Integer(pub i32);
 
 pub fn integer(input: &str) -> IResult<&str, Integer> {
     i32(input).map(|(remaining, value)| (remaining, Integer(value)))

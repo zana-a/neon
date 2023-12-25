@@ -8,7 +8,7 @@
 //!
 //! Reference:
 //! ```
-//! <identifier>: <identifier
+//! <identifier>: <identifier>
 //! ```
 //!
 //! Example:
