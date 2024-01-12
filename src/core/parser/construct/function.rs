@@ -39,6 +39,8 @@
 //! hello("Zana", 24)
 //! ```
 
+// TODO: known issues of function parser: spacing on left side of arrow is fine but on right side it causes error.
+
 use nom::character::complete::multispace1;
 use nom::combinator::opt;
 use nom::sequence::{delimited, preceded, tuple};
