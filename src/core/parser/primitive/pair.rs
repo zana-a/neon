@@ -17,9 +17,10 @@
 //! _hello: world
 //! ```
 
-use nom::{sequence::separated_pair, IResult};
+use nom::sequence::separated_pair;
 
 use crate::core::parser::primitive::identifier::{identifier, Identifier};
+use crate::core::parser::result::Result;
 use crate::core::parser::util::colon::colon;
 use crate::core::parser::util::padded::padded0;
 
@@ -29,7 +30,7 @@ pub struct Pair {
     pub kind: Identifier,
 }
 
-pub fn pair(input: &str) -> IResult<&str, Pair> {
+pub fn pair(input: &str) -> Result<&str, Pair> {
     separated_pair(identifier, padded0(colon), identifier)(input).map(|(remaining, result)| {
         (
             remaining,

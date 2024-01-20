@@ -1,10 +1,10 @@
+use crate::core::parser::result::Result;
 use nom::character::complete::i32;
-use nom::IResult;
 
 #[derive(Debug, PartialEq)]
 pub struct Integer(pub i32);
 
-pub fn integer(input: &str) -> IResult<&str, Integer> {
+pub fn integer(input: &str) -> Result<&str, Integer> {
     i32(input).map(|(remaining, value)| (remaining, Integer(value)))
 }
 

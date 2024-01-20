@@ -7,9 +7,9 @@ use nom::{
     combinator::{opt, recognize},
     multi::many1,
     sequence::pair,
-    IResult,
 };
 
+use crate::core::parser::result::Result;
 use crate::core::parser::util::alpha::alpha;
 use crate::core::parser::util::numeric::numeric;
 use crate::core::parser::util::underscore::underscore;
@@ -19,7 +19,7 @@ pub struct Identifier {
     pub value: String,
 }
 
-pub fn identifier(input: &str) -> IResult<&str, Identifier> {
+pub fn identifier(input: &str) -> Result<&str, Identifier> {
     recognize(pair(
         alt((alpha, underscore)),
         opt(many1(alt((alpha, numeric, underscore)))),

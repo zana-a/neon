@@ -17,12 +17,12 @@ use nom::{
     bytes::complete::tag,
     character::complete::multispace1,
     sequence::{preceded, tuple},
-    IResult,
 };
 
 use crate::core::parser::primitive::boolean::{boolean, Boolean};
 use crate::core::parser::primitive::identifier::Identifier;
 use crate::core::parser::primitive::pair::pair;
+use crate::core::parser::result::Result;
 use crate::core::parser::util::equals::equals;
 use crate::core::parser::util::padded::padded0;
 
@@ -33,7 +33,7 @@ pub struct Constant {
     pub body: Boolean,
 }
 
-pub fn constant(input: &str) -> IResult<&str, Constant> {
+pub fn constant(input: &str) -> Result<&str, Constant> {
     let declaration = preceded(tag("let"), preceded(multispace1, pair));
     let assigment = preceded(padded0(equals), boolean);
 

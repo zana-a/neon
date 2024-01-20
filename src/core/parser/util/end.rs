@@ -1,6 +1,7 @@
 use nom::bytes::complete::tag;
-use nom::IResult;
 
-pub fn end(input: &str) -> IResult<&str, &str> {
+use crate::core::parser::result::Result;
+
+pub fn end(input: &str) -> Result<&str, &str> {
     tag("end")(input)
 }

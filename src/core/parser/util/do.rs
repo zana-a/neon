@@ -1,6 +1,7 @@
 use nom::bytes::complete::tag;
-use nom::IResult;
 
-pub fn r#do(input: &str) -> IResult<&str, &str> {
+use crate::core::parser::result::Result;
+
+pub fn r#do(input: &str) -> Result<&str, &str> {
     tag("do")(input)
 }
