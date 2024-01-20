@@ -4,6 +4,7 @@
 pub mod alpha;
 pub mod arrow;
 pub mod braces;
+pub mod bracket;
 pub mod colon;
 pub mod comma;
 pub mod def;

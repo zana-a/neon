@@ -65,7 +65,7 @@ pub fn block(input: &str) -> Result<&str, Block> {
 
 #[cfg(test)]
 mod tests {
-    use crate::core::parser::construct::expression::ExpressionBody;
+    use crate::core::parser::construct::expression::{Expression, ExpressionBody};
     use crate::core::parser::primitive::boolean::Boolean;
 
     use super::*;
