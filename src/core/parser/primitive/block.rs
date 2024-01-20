@@ -30,10 +30,9 @@
 use nom::branch::alt;
 use nom::character::complete::multispace1;
 use nom::sequence::delimited;
-use nom::IResult;
 
-use crate::core::parser::construct::expression::Expression;
 use crate::core::parser::primitive::expressions::{expressions, Expressions};
+use crate::core::parser::result::Result;
 use crate::core::parser::util::end::end;
 use crate::core::parser::util::padded::padded1;
 use crate::core::parser::util::r#do::r#do;
@@ -44,7 +43,7 @@ pub struct Block {
     pub body: Option<Expressions>,
 }
 
-fn populated_block(input: &str) -> IResult<&str, Block> {
+fn populated_block(input: &str) -> Result<&str, Block> {
     delimited(r#do, padded1(expressions), end)(input).map(|(remaining, expressions)| {
         let body = if expressions.is_empty() {
             None
@@ -56,11 +55,11 @@ fn populated_block(input: &str) -> IResult<&str, Block> {
     })
 }
 
-fn empty_block(input: &str) -> IResult<&str, Block> {
+fn empty_block(input: &str) -> Result<&str, Block> {
     delimited(r#do, multispace1, end)(input).map(|(remaining, _)| (remaining, Block { body: None }))
 }
 
-pub fn block(input: &str) -> IResult<&str, Block> {
+pub fn block(input: &str) -> Result<&str, Block> {
     alt((populated_block, empty_block))(input)
 }
 

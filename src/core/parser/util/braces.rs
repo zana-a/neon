@@ -1,9 +1,9 @@
-use nom::IResult;
+use crate::core::parser::result::Result;
 
-pub fn left_brace(input: &str) -> IResult<&str, char> {
+pub fn left_brace(input: &str) -> Result<&str, char> {
     nom::character::complete::char('{')(input)
 }
 
-pub fn right_brace(input: &str) -> IResult<&str, char> {
+pub fn right_brace(input: &str) -> Result<&str, char> {
     nom::character::complete::char('}')(input)
 }

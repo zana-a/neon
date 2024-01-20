@@ -13,7 +13,8 @@
 //! false
 //! ```
 
-use nom::{branch::alt, bytes::complete::tag, IResult};
+use crate::core::parser::result::Result;
+use nom::{branch::alt, bytes::complete::tag};
 
 #[derive(PartialEq, Debug)]
 pub enum Boolean {
@@ -21,15 +22,15 @@ pub enum Boolean {
     False,
 }
 
-fn r#true(input: &str) -> IResult<&str, Boolean> {
+fn r#true(input: &str) -> Result<&str, Boolean> {
     tag("true")(input).map(|(remaining, _)| (remaining, Boolean::True))
 }
 
-fn r#false(input: &str) -> IResult<&str, Boolean> {
+fn r#false(input: &str) -> Result<&str, Boolean> {
     tag("false")(input).map(|(remaining, _)| (remaining, Boolean::False))
 }
 
-pub fn boolean(input: &str) -> IResult<&str, Boolean> {
+pub fn boolean(input: &str) -> Result<&str, Boolean> {
     alt((r#true, r#false))(input)
 }
 

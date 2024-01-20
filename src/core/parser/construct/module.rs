@@ -55,10 +55,10 @@ use nom::bytes::complete::tag;
 use nom::character::complete::multispace1;
 use nom::multi::many1;
 use nom::sequence::{delimited, preceded, terminated, tuple};
-use nom::IResult;
 
 use crate::core::parser::construct::function::{function, Function};
 use crate::core::parser::primitive::identifier::{identifier, Identifier};
+use crate::core::parser::result::Result;
 use crate::core::parser::util::end::end;
 use crate::core::parser::util::padded::padded1;
 use crate::core::parser::util::r#do::r#do;
@@ -75,33 +75,33 @@ pub struct Module {
     pub body: Option<Vec<ModuleBody>>,
 }
 
-fn modularised_function(input: &str) -> IResult<&str, ModuleBody> {
+fn modularised_function(input: &str) -> Result<&str, ModuleBody> {
     function(input).map(|(remaining, function)| (remaining, ModuleBody::Function(function)))
 }
 
-fn modularised_module(input: &str) -> IResult<&str, ModuleBody> {
+fn modularised_module(input: &str) -> Result<&str, ModuleBody> {
     module(input).map(|(remaining, module)| (remaining, ModuleBody::Module(Box::new(module))))
 }
 
-fn populated_block(input: &str) -> IResult<&str, Option<Vec<ModuleBody>>> {
+fn populated_block(input: &str) -> Result<&str, Option<Vec<ModuleBody>>> {
     let module_or_function = alt((modularised_module, modularised_function));
     delimited(r#do, many1(padded1(module_or_function)), end)(input)
         .map(|(remaining, result)| (remaining, Some(result)))
 }
 
-fn empty_block(input: &str) -> IResult<&str, Option<Vec<ModuleBody>>> {
+fn empty_block(input: &str) -> Result<&str, Option<Vec<ModuleBody>>> {
     terminated(preceded(r#do, multispace1), end)(input).map(|(remaining, _)| (remaining, None))
 }
 
-fn block(input: &str) -> IResult<&str, Option<Vec<ModuleBody>>> {
+fn block(input: &str) -> Result<&str, Option<Vec<ModuleBody>>> {
     alt((populated_block, empty_block))(input)
 }
 
-fn module_identifier(input: &str) -> IResult<&str, Identifier> {
+fn module_identifier(input: &str) -> Result<&str, Identifier> {
     preceded(tag("module"), padded1(identifier))(input)
 }
 
-pub fn module(input: &str) -> IResult<&str, Module> {
+pub fn module(input: &str) -> Result<&str, Module> {
     tuple((module_identifier, block))(input)
         .map(|(remaining, (identifier, body))| (remaining, Module { identifier, body }))
 }

@@ -1,6 +1,7 @@
 use nom::bytes::complete::tag;
-use nom::IResult;
 
-pub fn right_arrow(input: &str) -> IResult<&str, &str> {
+use crate::core::parser::result::Result;
+
+pub fn right_arrow(input: &str) -> Result<&str, &str> {
     tag("->")(input)
 }

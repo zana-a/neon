@@ -44,11 +44,11 @@
 use nom::character::complete::multispace1;
 use nom::combinator::opt;
 use nom::sequence::{delimited, preceded, tuple};
-use nom::IResult;
 
 use crate::core::parser::primitive::block::{block, Block};
 use crate::core::parser::primitive::identifier::{identifier, Identifier};
 use crate::core::parser::primitive::parameters::{parameters, Parameters};
+use crate::core::parser::result::Result;
 use crate::core::parser::util::arrow::right_arrow;
 use crate::core::parser::util::def::def;
 use crate::core::parser::util::padded::padded0;
@@ -62,7 +62,7 @@ pub struct Function {
     block: Option<Block>,
 }
 
-fn function_name(input: &str) -> IResult<&str, (Identifier, Parameters)> {
+fn function_name(input: &str) -> Result<&str, (Identifier, Parameters)> {
     tuple((
         identifier,
         delimited(left_parenthesis, parameters, right_parenthesis),
@@ -70,11 +70,11 @@ fn function_name(input: &str) -> IResult<&str, (Identifier, Parameters)> {
     .map(|(remaining, result)| (remaining, result))
 }
 
-fn function_return(input: &str) -> IResult<&str, Option<Identifier>> {
+fn function_return(input: &str) -> Result<&str, Option<Identifier>> {
     opt(preceded(right_arrow, preceded(multispace1, identifier)))(input)
 }
 
-pub fn function(input: &str) -> IResult<&str, Function> {
+pub fn function(input: &str) -> Result<&str, Function> {
     tuple((
         preceded(tuple((def, multispace1)), function_name),
         tuple((padded0(function_return), block)),

@@ -15,8 +15,8 @@
 //! [1, 2, 3, 4]
 //! ```
 
+use crate::core::parser::result::Result;
 use nom::branch::alt;
-use nom::IResult;
 
 use crate::core::parser::primitive::boolean::{boolean, Boolean};
 use crate::core::parser::primitive::integer::{integer, Integer};
@@ -36,22 +36,21 @@ pub struct Expression {
     pub body: ExpressionBody,
 }
 
-fn expressed_integer(input: &str) -> IResult<&str, ExpressionBody> {
+fn expressed_integer(input: &str) -> Result<&str, ExpressionBody> {
     integer(input).map(|(remaining, integer)| (remaining, ExpressionBody::Arithmetic(integer)))
 }
 
-fn expressed_boolean(input: &str) -> IResult<&str, ExpressionBody> {
+fn expressed_boolean(input: &str) -> Result<&str, ExpressionBody> {
     boolean(input).map(|(remaining, boolean)| (remaining, ExpressionBody::Boolean(boolean)))
 }
 
-pub fn expression(input: &str) -> IResult<&str, Expression> {
+pub fn expression(input: &str) -> Result<&str, Expression> {
     alt((expressed_integer, expressed_boolean))(input)
         .map(|(remaining, body)| (remaining, Expression { body }))
 }
 
 #[cfg(test)]
 mod tests {
-
     use crate::core::parser::construct::expression::{expression, Expression, ExpressionBody};
     use crate::core::parser::primitive::boolean::Boolean;
     use crate::core::parser::primitive::integer::Integer;

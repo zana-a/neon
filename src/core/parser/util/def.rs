@@ -1,6 +1,6 @@
+use crate::core::parser::result::Result;
 use nom::bytes::complete::tag;
-use nom::IResult;
 
-pub fn def(input: &str) -> IResult<&str, &str> {
+pub fn def(input: &str) -> Result<&str, &str> {
     tag("def")(input)
 }

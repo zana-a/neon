@@ -16,26 +16,28 @@
 //! a:1,b:2,c:3
 //! ```
 
+use nom::multi::separated_list0;
+
 use crate::core::parser::primitive::pair::{pair, Pair};
+use crate::core::parser::result::Result;
 use crate::core::parser::util::comma::comma;
 use crate::core::parser::util::padded::padded0;
-use nom::multi::separated_list0;
-use nom::IResult;
 
 #[derive(Debug, PartialEq)]
 pub struct Parameters {
     pub parameters: Vec<Pair>,
 }
 
-pub fn parameters(input: &str) -> IResult<&str, Parameters> {
+pub fn parameters(input: &str) -> Result<&str, Parameters> {
     separated_list0(padded0(comma), pair)(input)
         .map(|(remaining, parameters)| (remaining, Parameters { parameters }))
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use crate::core::parser::primitive::identifier::Identifier;
+
+    use super::*;
 
     #[test]
     fn empty() {
