@@ -66,7 +66,7 @@ use crate::core::parser::util::r#do::r#do;
 #[derive(Debug, PartialEq)]
 pub enum ModuleBody {
     Function(Function),
-    Module(Box<Module>),
+    Module(Module),
 }
 
 #[derive(Debug, PartialEq)]
@@ -80,11 +80,14 @@ fn modularised_function(input: &str) -> Result<&str, ModuleBody> {
 }
 
 fn modularised_module(input: &str) -> Result<&str, ModuleBody> {
-    module(input).map(|(remaining, module)| (remaining, ModuleBody::Module(Box::new(module))))
+    module(input).map(|(remaining, module)| (remaining, ModuleBody::Module(module)))
+}
+
+fn module_or_function(input: &str) -> Result<&str, ModuleBody> {
+    alt((modularised_module, modularised_function))(input)
 }
 
 fn populated_block(input: &str) -> Result<&str, Option<Vec<ModuleBody>>> {
-    let module_or_function = alt((modularised_module, modularised_function));
     delimited(r#do, many1(padded1(module_or_function)), end)(input)
         .map(|(remaining, result)| (remaining, Some(result)))
 }
@@ -133,17 +136,17 @@ mod tests {
                 identifier: Identifier {
                     value: String::from("A"),
                 },
-                body: Some(vec![ModuleBody::Module(Box::new(Module {
+                body: Some(vec![ModuleBody::Module(Module {
                     identifier: Identifier {
                         value: String::from("B"),
                     },
-                    body: Some(vec![ModuleBody::Module(Box::new(Module {
+                    body: Some(vec![ModuleBody::Module(Module {
                         identifier: Identifier {
                             value: String::from("C"),
                         },
                         body: None,
-                    }))]),
-                }))]),
+                    })]),
+                })]),
             },
         ));
         let actual = module(
@@ -169,18 +172,18 @@ mod tests {
                     value: String::from("A"),
                 },
                 body: Some(vec![
-                    ModuleBody::Module(Box::new(Module {
+                    ModuleBody::Module(Module {
                         identifier: Identifier {
                             value: String::from("B"),
                         },
                         body: None,
-                    })),
-                    ModuleBody::Module(Box::new(Module {
+                    }),
+                    ModuleBody::Module(Module {
                         identifier: Identifier {
                             value: String::from("C"),
                         },
                         body: None,
-                    })),
+                    }),
                 ]),
             },
         ));
@@ -190,6 +193,107 @@ mod tests {
           module B do
           end
           module C do
+          end
+        end
+        "#
+            .trim(),
+        );
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn is_module_or_function() {
+        let expected = Ok((
+            "",
+            ModuleBody::Function(Function {
+                name: Identifier {
+                    value: String::from("hello"),
+                },
+                parameters: None,
+                returns: None,
+                block: None,
+            }),
+        ));
+        let actual = module_or_function("def hello() do end");
+        assert_eq!(expected, actual);
+
+        let expected = Ok((
+            "",
+            ModuleBody::Module(Module {
+                identifier: Identifier {
+                    value: String::from("Hello"),
+                },
+                body: None,
+            }),
+        ));
+        let actual = module_or_function("module Hello do end");
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn single_function() {
+        let expected = Ok((
+            "",
+            Module {
+                identifier: Identifier {
+                    value: String::from("A"),
+                },
+                body: Some(vec![ModuleBody::Function(Function {
+                    name: Identifier {
+                        value: String::from("hello"),
+                    },
+                    parameters: None,
+                    returns: None,
+                    block: None,
+                })]),
+            },
+        ));
+
+        let actual = module(
+            r#"
+        module A do
+          def hello() do
+          end
+        end
+        "#
+            .trim(),
+        );
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn has_both_function_and_module() {
+        let expected = Ok((
+            "",
+            Module {
+                identifier: Identifier {
+                    value: String::from("A"),
+                },
+                body: Some(vec![
+                    ModuleBody::Function(Function {
+                        name: Identifier {
+                            value: String::from("hello"),
+                        },
+                        parameters: None,
+                        returns: None,
+                        block: None,
+                    }),
+                    ModuleBody::Module(Module {
+                        identifier: Identifier {
+                            value: String::from("B"),
+                        },
+                        body: None,
+                    }),
+                ]),
+            },
+        ));
+
+        let actual = module(
+            r#"
+        module A do
+          def hello() do
+          end
+          module B do
           end
         end
         "#

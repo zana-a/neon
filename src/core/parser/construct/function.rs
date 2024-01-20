@@ -56,10 +56,10 @@ use crate::core::parser::util::parenthesis::{left_parenthesis, right_parenthesis
 
 #[derive(Debug, PartialEq)]
 pub struct Function {
-    name: Identifier,
-    parameters: Option<Parameters>,
-    returns: Option<Identifier>,
-    block: Option<Block>,
+    pub name: Identifier,
+    pub parameters: Option<Parameters>,
+    pub returns: Option<Identifier>,
+    pub block: Option<Block>,
 }
 
 fn function_name(input: &str) -> Result<&str, (Identifier, Parameters)> {
