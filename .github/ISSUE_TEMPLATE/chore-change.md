@@ -1,7 +1,7 @@
 ---
 name: Chore Change
 about: File a chore change
-title: "[chore]: "
+title: "[Chore]: "
 labels:
   - chore
 assignees:
