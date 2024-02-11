@@ -1,6 +1,3 @@
-//! # Util Module
-//! This module defines parsers that are commonly used for simplifying higher-level parser units.
-
 pub mod alpha;
 pub mod arrow;
 pub mod braces;

@@ -1,0 +1,10 @@
+reorder_imports = true
+chain_width = 40
+max_width = 80
+tab_spaces = 2
+imports_granularity = "Item"
+normalize_comments = true
+normalize_doc_attributes = true
+reorder_impl_items = true
+group_imports = "StdExternalCrate"
+wrap_comments = true
