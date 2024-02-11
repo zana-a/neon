@@ -1,0 +1,6 @@
+module Hello do
+  struct Person do
+    first_name: str,
+    last_name: str,
+  end
+end

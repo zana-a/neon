@@ -1,4 +1,5 @@
-package: stdlib
+package: std
 version: "0.0.1"
 
 dependencies:
+  # none

@@ -1,0 +1,12 @@
+module Runner do 
+  def main() do 
+    say_hello()
+    # more demos...
+  end
+
+  def say_hello() do
+    Hello.hello()
+      ->> String.reverse()
+      ->> Io.print()
+  end
+end

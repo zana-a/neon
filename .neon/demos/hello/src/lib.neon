@@ -1,0 +1,17 @@
+module Hello do
+  def hello() -> str do
+    "Hello, Neon!"
+  end
+
+  def hello(name: str) -> str do
+    "Hello, #{name}!"
+  end
+
+  def hello(person: Person) -> str do
+    "Hello #{_get_full_name(person)}"
+  end
+
+  def _get_full_name(person: Person) -> str do
+    person.first_name <> person.last_name
+  end
+end
