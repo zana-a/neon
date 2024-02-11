@@ -1,3 +1,0 @@
-package stdlib
-
-# Empty for now...
