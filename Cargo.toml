@@ -5,4 +5,5 @@ edition = "2021"
 
 [dependencies]
 clap = "4.5.0"
+linefeed = "0.6.0"
 nom = "7.1.3"
