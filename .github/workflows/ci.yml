@@ -1,4 +1,4 @@
-name: CI
+name: CI Build
 
 env:
   CARGO_TERM_COLOR: always
@@ -7,11 +7,10 @@ on:
   push:
     branches:
       - main
-      - dev
+
   pull_request:
     branches:
       - main
-      - dev
 
 jobs:
   build:
