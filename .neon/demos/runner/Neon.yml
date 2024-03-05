@@ -1,6 +1,0 @@
-package: runner
-version: "0.0.1"
-
-dependencies:
-  std: "0.0.1"
-  hello: "0.0.1"

@@ -1,9 +1,0 @@
-module Io do
-  def put(a: any) do
-    # logic goes here
-  end
-
-  def puts(a: any) do
-    put(a <> "\n")
-  end
-end

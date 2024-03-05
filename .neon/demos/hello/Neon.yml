@@ -1,5 +1,0 @@
-package: hello
-version: "0.0.1"
-
-dependencies:
-  std: "0.0.1"
